@@ -13,7 +13,7 @@ and the upstream source in [`build/shop/app/`](build/shop/app) builds with its o
 
 ```bash
 isoloom generate
-isoloom up docker
+isoloom run docker
 ```
 
 Then open http://localhost:3000/. The same spec runs as Docker on a local VM (`docker-vm`), on a
