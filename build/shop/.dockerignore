@@ -1,0 +1,20 @@
+app/.git/
+app/monitoring/
+app/node_modules/
+app/screenshots/
+app/test/
+app/build/reports/
+app/dist/
+app/vagrant/
+app/logs/
+Dockerfile
+app/.npmrc
+/bom.json
+/bom.xml
+app/.nyc_output
+app/coverage
+
+# Pattern is *not covered* by node_modules/ above no matter what IntelliJ says!
+app/frontend/node_modules/
+app/frontend/dist/
+app/frontend/.angular/

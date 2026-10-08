@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://www.isoloom.com/schema/v1.json
+# OWASP Juice Shop (by Bjoern Kimminich and the OWASP Juice Shop contributors) as an Isoloom
+# spec: the upstream source, vendored unchanged in build/shop/app/, built by its Dockerfile (pinned to its release date).
+# `isoloom generate`, then `isoloom up docker`.
+version: 1
+name: juice-shop
+
+networks:
+  lab: { cidr: 10.60.1.0/24, internet: true }
+
+machines:
+  shop:
+    networks: { lab: 10 }
+    services: [{ port: 3000, name: web, http: true, publish: 3000 }]
+    resources: { cpus: 1, memory_mb: 1024 }
+    docker:
+      build: build/shop
+
+checks:
+  - name: the shop answers
+    http: http://shop:3000/
+    wait: 180
+  - name: the product API answers
+    http: http://shop:3000/rest/products/search?q=
+  - name: the FTP folder is listed
+    http: http://shop:3000/ftp/
+
+message: |
+  OWASP Juice Shop answers at http://localhost:{{ machines.shop.services.0.publish }}/.
+  Find the Score Board first; the challenges are listed there.

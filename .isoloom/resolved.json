@@ -1,0 +1,137 @@
+{
+  "generated_by_isoloom": "from isoloom.yml; don't edit: change the spec and run `isoloom generate` (`isoloom check` fails when this file is out of date)",
+  "resolved_version": 1,
+  "name": "juice-shop",
+  "instance": null,
+  "inputs": [],
+  "networks": {
+    "lab": {
+      "cidr": "10.60.1.0/24",
+      "docker_cidr": "10.60.1.0/24",
+      "internet": true,
+      "gateway": null,
+      "gateway_address": "10.60.1.1",
+      "router": null,
+      "controller": "10.60.1.253"
+    }
+  },
+  "reach": [],
+  "machines": {
+    "shop": {
+      "access": false,
+      "supplied": false,
+      "shapes": [
+        "docker"
+      ],
+      "arch": "amd64",
+      "os": null,
+      "windows": false,
+      "addresses": {
+        "lab": "10.60.1.10"
+      },
+      "docker_addresses": {
+        "lab": "10.60.1.10"
+      },
+      "services": [
+        {
+          "port": 3000,
+          "name": "web",
+          "http": true,
+          "publish": 3000
+        }
+      ],
+      "depends_on": [],
+      "inputs": [],
+      "volumes": {},
+      "resources": {
+        "cpus": 1,
+        "memory_mb": 1024,
+        "disk_gb": 20
+      },
+      "gateway_of": [],
+      "routes": [],
+      "default_gateway": null,
+      "offline": false
+    }
+  },
+  "start_order": [
+    "shop"
+  ],
+  "clones": {},
+  "tools": {},
+  "groups": {},
+  "router": null,
+  "controller": {
+    "addresses": {
+      "lab": "10.60.1.253"
+    }
+  },
+  "published": [
+    {
+      "machine": "shop",
+      "port": 3000,
+      "host_port": 3000
+    }
+  ],
+  "targets": {
+    "possible": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "generated": [
+      "docker",
+      "hosted",
+      "docker-vm",
+      "cloud-docker",
+      "kubernetes"
+    ],
+    "refused": {},
+    "not_possible": {
+      "hybrid": "only when some machines are containers and others are VMs",
+      "vagrant": "needs `vm:` on shop",
+      "proxmox": "needs `vm:` on shop",
+      "cloud-vm": "needs `vm:` on shop",
+      "external": "needs `external:` on shop"
+    }
+  },
+  "checks": {
+    "default_position": "networks",
+    "positions": [
+      {
+        "position": "networks",
+        "machine": null,
+        "runner": "isoloom-check",
+        "checks": [
+          {
+            "name": "the shop answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://shop:3000/",
+            "expect": "200",
+            "wait": 180
+          },
+          {
+            "name": "the product API answers",
+            "derived": false,
+            "kind": "http",
+            "target": "http://shop:3000/rest/products/search?q=",
+            "expect": "200",
+            "wait": 30
+          },
+          {
+            "name": "the FTP folder is listed",
+            "derived": false,
+            "kind": "http",
+            "target": "http://shop:3000/ftp/",
+            "expect": "200",
+            "wait": 30
+          }
+        ]
+      }
+    ]
+  },
+  "message": "OWASP Juice Shop answers at http://localhost:3000/.\nFind the Score Board first; the challenges are listed there.\n"
+}
