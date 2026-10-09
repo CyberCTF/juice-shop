@@ -9,6 +9,9 @@ services:
   shop:
     build:
       context: ../../build/shop
+      labels:
+        isoloom.managed: 'true'
+        isoloom.environment: juice-shop
     image: isoloom/juice-shop-shop
     platform: linux/amd64
     hostname: shop
@@ -40,6 +43,8 @@ services:
           memory: 1024M
     labels:
       isoloom.service.web: http:3000
+      isoloom.managed: 'true'
+      isoloom.environment: juice-shop
     restart: unless-stopped
   isoloom-check:
     image: curlimages/curl:8.11.1
@@ -55,6 +60,9 @@ services:
     depends_on:
       shop:
         condition: service_healthy
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: juice-shop
   isoloom-probe-amd64:
     image: busybox:1.37.0-musl
     platform: linux/amd64
@@ -66,11 +74,20 @@ services:
     - isoloom-probe-amd64:/probe
     network_mode: none
     restart: no
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: juice-shop
 networks:
   lab:
     ipam:
       config:
       - subnet: 10.60.1.0/24
         gateway: 10.60.1.1
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: juice-shop
 volumes:
-  isoloom-probe-amd64: {}
+  isoloom-probe-amd64:
+    labels:
+      isoloom.managed: 'true'
+      isoloom.environment: juice-shop

@@ -94,7 +94,8 @@
       "vagrant": "needs `vm:` on shop",
       "proxmox": "needs `vm:` on shop",
       "cloud-vm": "needs `vm:` on shop",
-      "external": "needs `external:` on shop"
+      "external": "needs `external:` on shop",
+      "cloud-services": "left out by `targets:`"
     }
   },
   "checks": {
