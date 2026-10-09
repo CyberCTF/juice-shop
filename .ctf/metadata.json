@@ -4,6 +4,5 @@
   "question": "Solve the challenges listed on the Score Board.",
   "category": "WEB",
   "difficulty": 2,
-  "evidence_kind": "SECRET",
-  "capabilities": ["sql-injection", "cross-site-scripting", "broken-access-control"]
+  "evidence_kind": "SECRET"
 }
